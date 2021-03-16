@@ -5,8 +5,17 @@ const User = require('../models/userModel')
 //import authentication middleware
 const auth = require('../middleware/auth')
 
+router.get('/', async (req,res) => {
+  try {
+    const user = await User.find()
+    res.status(200).json(user)
+  } catch (error) {
+    res.status(500).json( {error: error.message})
+  }
+})
+
 router.post('/',async (req,res)=>{
-  console.log(req.body)
+  // console.log(req.body)
 
   try {
     
@@ -24,9 +33,9 @@ router.post('/',async (req,res)=>{
 
 router.post('/login',async (req,res)=>{
   try {
-    const {name,email, password} = req.body
+    const {name, password} = req.body
     // console.log(req.body)
-    const user = await User.findByCredentials(name,email,password) //User is class
+    const user = await User.findByCredentials(name,password) //User is class
 
     if(!user){
       return res.status(401).json({error:'Login failed,please check your credentials !'})
@@ -41,14 +50,6 @@ router.post('/login',async (req,res)=>{
   }
 })
 
-router.get('/', async (req,res) => {
-  try {
-    const user = await User.find()
-    res.status(200).json(user)
-  } catch (error) {
-    res.status(500).json( {error: error.message})
-  }
-})
 
 
 router.post('/logout', auth, async (req,res)=>{

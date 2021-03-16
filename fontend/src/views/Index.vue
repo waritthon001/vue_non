@@ -25,11 +25,11 @@
                 <label>User ID</label>
                 <md-input v-model="name"></md-input>
               </md-field>
-              <md-field class="md-form-group" slot="inputs">
+              <!-- <md-field class="md-form-group" slot="inputs">
                 <md-icon>email</md-icon>
                 <label>Email...</label>
                 <md-input v-model="email" type="email"></md-input>
-              </md-field>
+              </md-field> -->
               <md-field class="md-form-group" slot="inputs">
                 <md-icon>lock_outline</md-icon>
                 <label>Password...</label>
@@ -84,7 +84,7 @@ export default {
   data() {
     return {
       name: null,
-      email: null,
+      // email: null,
       password: null,
       leafShow: false
     };
@@ -92,7 +92,7 @@ export default {
   methods: {
     checkForm: function(e) {
           // console.log(typeof(this.password))
-      if (!this.name || !this.email || !this.password ) {
+      if (!this.name || !this.password ) {
         alert('Please enter all fields');
         e.preventDefault();
       }
@@ -102,15 +102,15 @@ export default {
          e.preventDefault();
       }
 
-      else if(!validator.isEmail(this.email)){
-        alert('Your email is invalide')
-        e.preventDefault();
-      }
+      // else if(!validator.isEmail(this.email)){
+      //   alert('Your email is invalide')
+      //   e.preventDefault();
+      // }
       else{ 
         axios
           .post("http://localhost:5000/users/login", {
             name: this.name,
-            email: this.email,
+            // email: this.email,
             password: this.password
           })
           .then(response => {
@@ -118,9 +118,9 @@ export default {
               console.log('done')
               }).catch(error => {
   
-                console.log(error.response.data)
-                console.log('-----------------------------')
-                console.log(error.response.data.error)
+                // console.log(error.response.data)
+                // console.log('-----------------------------')
+                // console.log(error.response.data.error)
     
                 // if(error.response.data.message.message && error.response.data.message.message.indexOf('E11000 duplicate key error collection: myFirstDatabase.users index: name_1 dup key')!=-1)
                 //   alert('name is already existed')

@@ -32,7 +32,7 @@ userSchema.methods.generateAuthToken = async function() {
     const user = this
     const payload = {
         _id: user._id,
-        email: user.email,
+        name: user.name,
         admin: user.admin
     }
     const token = jwt.sign(payload, 
@@ -46,13 +46,13 @@ userSchema.methods.generateAuthToken = async function() {
     return token
 }
 
-userSchema.statics.findByCredentials = async (name,email, password) => {
+userSchema.statics.findByCredentials = async (name, password) => {
     try {
         // const name = await User.findOne( {name} )
 
-        const user = await User.findOne( {email} )
+        const user = await User.findOne( {name} )
 
-        if(user.name!=name) throw new Error()
+        // if(user.name!=name) throw new Error()
         if(!user) throw new Error()
 
         //compere provided 'password' with hashed 'user.password
